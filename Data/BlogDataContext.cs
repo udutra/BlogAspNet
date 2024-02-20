@@ -11,7 +11,6 @@ public class BlogDataContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<Tag> Tags { get; set; }
-    public DbSet<PostWithTagsCount> PostWithTagsCounts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
@@ -25,9 +24,5 @@ public class BlogDataContext : DbContext
         modelBuilder.ApplyConfiguration(new CategoryMap());
         modelBuilder.ApplyConfiguration(new UserMap());
         modelBuilder.ApplyConfiguration(new PostMap());
-        modelBuilder.Entity<PostWithTagsCount>(x =>
-        {
-            x.ToSqlQuery("SELECT [Title] AS [NAME], (SELECT COUNT ([Id]) FROM [Tag] WHERE [Post].[Id] = [Id]) AS [COUNT] FROM [Post]");
-        });
     }
 }
