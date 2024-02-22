@@ -24,5 +24,7 @@ public class BlogDataContext : DbContext
         modelBuilder.ApplyConfiguration(new CategoryMap());
         modelBuilder.ApplyConfiguration(new UserMap());
         modelBuilder.ApplyConfiguration(new PostMap());
+        modelBuilder.ApplyConfiguration(new TagMap());
+        modelBuilder.ApplyConfiguration(new RoleMap());
     }
 }

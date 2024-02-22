@@ -39,12 +39,12 @@ public class UserMap :IEntityTypeConfiguration<User>
             .HasMaxLength(255);
         
         builder.Property(x => x.Bio)
-            .IsRequired() //Gera um NOT NULL
+            .IsRequired(false) //Gera um NOT NULL
             .HasColumnName("Bio")
             .HasColumnType("TEXT");
         
         builder.Property(x => x.Image)
-            .IsRequired() //Gera um NOT NULL
+            .IsRequired(false) //Gera um NOT NULL
             .HasColumnName("Image")
             .HasColumnType("VARCHAR")
             .HasMaxLength(2000);
@@ -54,12 +54,6 @@ public class UserMap :IEntityTypeConfiguration<User>
             .HasColumnName("Slug")
             .HasColumnType("VARCHAR")
             .HasMaxLength(80);
-        
-        builder.Property(x => x.Github)
-            .IsRequired() //Gera um NOT NULL
-            .HasColumnName("Github")
-            .HasColumnType("VARCHAR")
-            .HasMaxLength(255);
         
         //Índices
         builder.HasIndex(x => x.Slug, "IX_User_Slug")

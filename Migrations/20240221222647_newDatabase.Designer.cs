@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogAspNet.Migrations
 {
     [DbContext(typeof(BlogDataContext))]
-    [Migration("20240220183419_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20240221222647_newDatabase")]
+    partial class newDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,15 +126,22 @@ namespace BlogAspNet.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("Name");
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Slug");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.HasIndex(new[] { "Slug" }, "IX_Role_Slug")
+                        .IsUnique();
+
+                    b.ToTable("Role", (string)null);
                 });
 
             modelBuilder.Entity("BlogAspNet.Models.Tag", b =>
@@ -147,15 +154,22 @@ namespace BlogAspNet.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("Name");
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Slug");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.HasIndex(new[] { "Slug" }, "IX_Tag_Slug")
+                        .IsUnique();
+
+                    b.ToTable("Tag", (string)null);
                 });
 
             modelBuilder.Entity("BlogAspNet.Models.User", b =>
@@ -176,12 +190,6 @@ namespace BlogAspNet.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("VARCHAR")
                         .HasColumnName("Email");
-
-                    b.Property<string>("Github")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("VARCHAR")
-                        .HasColumnName("Github");
 
                     b.Property<string>("Image")
                         .IsRequired()
