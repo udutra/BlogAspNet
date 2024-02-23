@@ -2,8 +2,17 @@
 
 public static class Configuration
 {
-    public static string JwyKey { get; set; } = "dGhlIGtleSBzaXplIG11c3QgYmUgZ3JlYXRlciB0aGFuOiAnMjU2JyBiaXRzLCBrZXkgaGFzICcyMjQnIGJpdHM=";
-    public static string ApiKeyName = "api_key";
-    public static string ApiKey = "curso_api_lIG11c3QgYmUgZ3Jl";
+    public static string JwyKey { get; set; }
+    public static string ApiKeyName { get; set; }
+    public static string ApiKey { get; set; }
+    public static SmtpConfiguration Smtp = new();
+
+    public class SmtpConfiguration
+    {
+        public string Host { get; set; }
+        public int Port { get; set; } = 25;
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
 
 }
